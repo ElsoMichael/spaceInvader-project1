@@ -3,9 +3,12 @@ var ctx = canvas.getContext("2d");
 var playerLaser = new Image ();
 playerLaser.src = "images/Blue01png.png";
 var shipsArr1 = [];
-var shipsArr2 = [];
-var shipsArr3 = [];
+// var shipsArr2 = [];
+// var shipsArr3 = [];
 var firedArr = [];
+var frameNum = 0;
+
+var intervalId = setInterval(updateCanvas, 20);
 
 var alien = {
 	x: 270,
@@ -23,24 +26,35 @@ function AlienShoot() {
 	this.y = alien.y;
 	this.width = 9;
 	this.height = 54;
+	this.left   = function() { return this.x                 };
+  this.right  = function() { return (this.x + this.width)  };
+  this.top    = function() { return this.y                 };
+  this.bottom = function() { return (this.y + this.height) };
 	this.sprite = playerLaser;
 
 	this.draw = function() {
 		ctx.drawImage(this.sprite, this.x + (alien.width/2 - this.width/2), this.y, this. width, this.height)
 	}
 	this.update = function() {
-		this.y -= 55; 
-	}
+		this.y -= 5; 
+
+	// Code to handle collision
+	this.crashWith = function(obstacle) {
+    return !((this.bottom() < obstacle.top())    ||
+             (this.top()    > obstacle.bottom()) ||
+             (this.right()  < obstacle.left())   ||
+             (this.left()   > obstacle.right()))
+	}}
 }
 
 window.onload = function() {
 	drawBoard();
-  drawAlien();
+  // drawAlien();
 };
 
 	//Board
 	function drawBoard() {
-		console.log("cat's meow.");
+		// console.log("cat's meow.");
 
 		// PlaceHolders
 		// Movement Path
@@ -61,7 +75,7 @@ window.onload = function() {
 		// End of place holders
 	};
 
-	//Draw Player
+	// Draw Player
 	function drawAlien() {
 		var img = new Image();
 		img.onload = function () {
@@ -128,8 +142,8 @@ window.onload = function() {
 
 			// Player Attack
 			case 32:
-			laserUpdate();
-			console.log("me no shoot");
+			pushLaser();
+			// console.log("me no shoot");
 			break;
 		}
     updateCanvas();
@@ -138,56 +152,72 @@ window.onload = function() {
 
 	// Keep Drawing Enemy
 	function pushShip() {
-		if (shipsArr1.length <= 6) {
+		if (shipsArr1.length <= 6 && frameIntveral(500)) {
 			shipsArr1.push(new ShipRow1());
 		}
-		if (shipsArr2.length <= 6) {
-			shipsArr2.push(new ShipRow2());
-		}
-		if (shipsArr3.length <= 6) {
-			shipsArr3.push(new ShipRow3());
-		}
+		// if (shipsArr2.length <= 6) {
+		// 	shipsArr2.push(new ShipRow2());
+		// }
+		// if (shipsArr3.length <= 6) {
+		// 	shipsArr3.push(new ShipRow3());
+		// }
 	}
 
 	function shipsUpdate() {
 		pushShip();
-		console.log("shipsUpdate")
+		// console.log("shipsUpdate")
 		shipsArr1.forEach(function(elm) {
 			elm.update();
-			elm.draw();			
-		});
-		shipsArr2.forEach(function(elm) {
-			elm.update();
 			elm.draw();
 		});
-		shipsArr3.forEach(function(elm) {
-			elm.update();
-			elm.draw();
-		});
+		// shipsArr2.forEach(function(elm) {
+		// 	elm.update();
+		// 	elm.draw();
+		// });
+		// shipsArr3.forEach(function(elm) {
+		// 	elm.update();
+		// 	elm.draw();
+		// });
 	}
 
-	function pushLaser() { 
+	// Draw and push Lasers
+	function pushLaser() {
 		firedArr.push(new AlienShoot());
 	}
 
 	function laserUpdate() {
-		pushLaser();
-		console.log("Shots Fired")
+		// console.log("Shots Fired")
 		firedArr.forEach(function(elm) {
 			elm.update();
 			elm.draw();
 		})
 	}
 
-
-
-
-
 	// Update game
 	function updateCanvas() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		drawBoard();
-		drawAlien();
 		shipsUpdate();
 		laserUpdate();
+		drawAlien();
+		frameNum += 20;
+
+		// var crashed = false;
+
+		// firedArr.forEach(function(fired) {
+		// 	shipsArr1.forEach(function(ship) {
+		// 		var crashed = fired.crashWith(ship);
+		// 	});
+		// });
+
+    // if (crashed) {
+		// 	// myGameArea.stop();
+		// 	console.log("HIT");
+    // }
+	}
+
+	function frameIntveral(n) {
+		if ((frameNum / n) % 1 === 0) {
+			return true;
+		} else { return false; }
 	}
