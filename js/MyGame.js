@@ -26,25 +26,39 @@ function AlienShoot() {
 	this.y = alien.y;
 	this.width = 9;
 	this.height = 54;
-	this.left   = function() { return this.x                 };
-  this.right  = function() { return (this.x + this.width)  };
-  this.top    = function() { return this.y                 };
-  this.bottom = function() { return (this.y + this.height) };
+	this.living = true;
 	this.sprite = playerLaser;
+	this.live = true;
 
 	this.draw = function() {
 		ctx.drawImage(this.sprite, this.x + (alien.width/2 - this.width/2), this.y, this. width, this.height)
 	}
 	this.update = function() {
 		this.y -= 5; 
-
+	}
 	// Code to handle collision
-	this.crashWith = function(obstacle) {
-    return !((this.bottom() < obstacle.top())    ||
-             (this.top()    > obstacle.bottom()) ||
-             (this.right()  < obstacle.left())   ||
-             (this.left()   > obstacle.right()))
-	}}
+	this.didHit = (otherobj) => {
+		var myleft = this.x;
+		var myright = this.x + (this.width);
+		var mytop = this.y
+		var mybottom = this.y + (this.height);
+		var otherleft = otherobj.x;
+		var otherright = otherobj.x + (otherobj.width);
+		var otherbottom = otherobj.y + (otherobj.height);
+		var othertop = otherobj.y;
+		var hit = true;
+		if (
+			(mybottom < othertop) ||
+			(mytop > otherbottom) ||
+			(myright < otherleft) ||
+			(myleft > otherright)
+		) {
+			hit = false;
+		} else {
+			otherobj.living = false;
+			this.live = false;
+		}
+	}
 }
 
 window.onload = function() {
@@ -190,7 +204,19 @@ window.onload = function() {
 		firedArr.forEach(function(elm) {
 			elm.update();
 			elm.draw();
+			shipsArr1.forEach((elem) => {
+				elm.didHit(elem);
+			})
 		})
+		var result1 = shipsArr1.filter((elem) => {
+			return elem.living !== false;
+		});
+		shipsArr1 = result1;
+		var result2 = firedArr.filter((elem) => {
+			return elem.live !== false;
+		});
+		firedArr = result2;
+
 	}
 
 	// Update game
@@ -201,6 +227,7 @@ window.onload = function() {
 		laserUpdate();
 		drawAlien();
 		frameNum += 20;
+
 
 		// var crashed = false;
 
