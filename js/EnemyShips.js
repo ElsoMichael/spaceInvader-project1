@@ -1,7 +1,9 @@
 var shipImg = new Image();
 shipImg.src = "images/badredship.png";
-// var enemyShots = new Image();
-// shipImg.src = "images/EnemyShots.png";
+var enemyShots = new Image();
+enemyShots.src = "images/EnemyShots.png";
+var enemyFiredArr = [];
+
 
 function ShipRow1() {
 	this.x = 630;
@@ -26,19 +28,24 @@ function ShipRow1() {
 	}
 }
 
-// function EnemyShoot() {
-// 	this.x = ShipRow1.x;
-// 	this.y = ShipRow1.y;
-// 	this.sprite = enemyShots;
-// 	this.width = 5;
-// 	this.height = 20;
-// 	this.update = function() {
-// 		this.y += 20;
-// 	}
-// 	this.draw = function() {
-// 		ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height)
-// 	}
-// 	this.randomShip = function() {
-// 		randomShot =	Math.floor(Math.random() * shipsArr1.length);
-// 	}
+function EnemyShoot() {
+		//loop where randomShot is the shipsArray1[randomShot]
+	this.x = ShipRow1.x;
+	this.y = ShipRow1.y;
+	// 
+	this.sprite = enemyShots;
+	this.width = 5;
+	this.height = 20;
+	this.update = function() {
+		this.y += 20;
+	}
+	this.draw = function() {
+		ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height)
+	}
+}
+
+// function updateCanvas() {
+// 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+// 	laserUpdate();
+// 	frameNum += 20;
 // }

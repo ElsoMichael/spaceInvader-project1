@@ -6,6 +6,7 @@ var background = new Image ();
 background.src = "images/Backgrounds/purple.png";
 var shipsArr1 = [];
 var firedArr = [];
+var enemyFiredArr = [];
 var frameNum = 0;
 
 var intervalId = setInterval(updateCanvas, 20);
@@ -76,10 +77,6 @@ window.onload = function() {
 		// Movement Path
 		ctx.fillStyle = "pink"
 		ctx.fillRect(0, 450, 600, 150)
-
-		// Center of game
-		ctx.fillStyle = "white"
-		ctx.fillRect(299, 0, 3, 600)
 		// End of place holders
 	};
 
@@ -165,12 +162,6 @@ window.onload = function() {
 		if (frameIntveral(1000)) {
 			shipsArr1.push(new ShipRow1());
 		}
-		// if (shipsArr2.length <= 6) {
-		// 	shipsArr2.push(new ShipRow2());
-		// }
-		// if (shipsArr3.length <= 6) {
-		// 	shipsArr3.push(new ShipRow3());
-		// }
 	}
 
 	function shipsUpdate() {
@@ -180,6 +171,14 @@ window.onload = function() {
 			elm.update();
 			elm.draw();
 		});
+	}
+
+	for (var i = 0; i < shipsArr1.length; i++) {
+		var randomShot =	Math.floor(Math.random() * shipsArr1.length);
+		shipsArr1[randomShot];
+		ctx.drawImage(enemyShots, shipsArr1[randomShot], shipsArr1[randomShot], 10, 10);
+		// doesnt even console log
+		console.log("draw already");
 	}
 
 	// Draw and push Lasers
@@ -215,23 +214,6 @@ window.onload = function() {
 		laserUpdate();
 		drawAlien();
 		frameNum += 20;
-<<<<<<< HEAD
-=======
-
-
-		// var crashed = false;
-
-		// firedArr.forEach(function(fired) {
-		// 	shipsArr1.forEach(function(ship) {
-		// 		var crashed = fired.crashWith(ship);
-		// 	});
-		// });
-
-    // if (crashed) {
-		// 	// myGameArea.stop();
-		// 	console.log("HIT");
-    // }
->>>>>>> b6834bbaee607a49e526e661c080025a8a313368
 	}
 
 	function frameIntveral(n) {
