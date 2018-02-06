@@ -215,6 +215,23 @@ window.onload = function() {
 		laserUpdate();
 		drawAlien();
 		frameNum += 20;
+<<<<<<< HEAD
+=======
+
+
+		// var crashed = false;
+
+		// firedArr.forEach(function(fired) {
+		// 	shipsArr1.forEach(function(ship) {
+		// 		var crashed = fired.crashWith(ship);
+		// 	});
+		// });
+
+    // if (crashed) {
+		// 	// myGameArea.stop();
+		// 	console.log("HIT");
+    // }
+>>>>>>> b6834bbaee607a49e526e661c080025a8a313368
 	}
 
 	function frameIntveral(n) {
