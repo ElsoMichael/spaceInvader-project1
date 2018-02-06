@@ -4,7 +4,6 @@ var enemyShots = new Image();
 enemyShots.src = "images/EnemyShots.png";
 var enemyFiredArr = [];
 
-
 function ShipRow1() {
 	this.x = 630;
 	this.y = 10;
@@ -28,10 +27,16 @@ function ShipRow1() {
 	}
 }
 
-function EnemyShoot() {
+
+function EnemyShoot() {	
+	this.randomShip = function() {
+		var randomShot =	Math.floor(Math.random() * shipsArr1.length);
+		return randomShot;
 		//loop where randomShot is the shipsArray1[randomShot]
-	this.x = ShipRow1.x;
-	this.y = ShipRow1.y;
+	}
+	this.random = this.randomShip();
+	this.x = ShipRow1[this.random].x;
+	this.y = ShipRow1[this.random].y;
 	// 
 	this.sprite = enemyShots;
 	this.width = 5;
@@ -44,8 +49,8 @@ function EnemyShoot() {
 	}
 }
 
-// function updateCanvas() {
-// 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-// 	laserUpdate();
-// 	frameNum += 20;
-// }
+function updateCanvas() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	laserUpdate();
+	frameNum += 20;
+}
