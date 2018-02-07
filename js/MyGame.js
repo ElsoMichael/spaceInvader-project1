@@ -19,8 +19,24 @@ var alien = {
 	moveLeft:  function() { this.x -= 10 },
 	moveRight: function() { this.x += 10 },
 	moveUp: function() {this.y -= 10},
-	moveDown: function() {this.y += 10}
+	moveDown: function() {this.y += 10},
+	left: function() { return this.x },
+  right: function() { return (this.x + this.width) },
+  top: function() { return this.y },
+  bottom: function() { return (this.y + this.height) },
+	living: true,
 }
+
+// function alien() {
+// 	this.x = 270;
+// 	this.y = 530;
+// 	this.width = 60;
+// 	this.height = 70;
+// 	this.moveLeft = function() { this.x -= 10 };
+// 	this.moveRight = function() { this.x += 10 };
+// 	this.moveUp = function() {this.y -= 10};
+// 	this.moveDown = function() {this.y += 10};
+// }
 
 function AlienShoot() {
 	this.x = alien.x;
@@ -157,8 +173,6 @@ window.onload = function() {
 
 	// Keep Drawing Enemy
 	function pushShip() {
-		var max = 10;
-		var min = 0
 		if (frameIntveral(1000)) {
 			shipsArr1.push(new ShipRow1());
 		}
@@ -173,12 +187,20 @@ window.onload = function() {
 		});
 	}
 
-	for (var i = 0; i < shipsArr1.length; i++) {
-		var randomShot =	Math.floor(Math.random() * shipsArr1.length);
-		shipsArr1[randomShot];
-		ctx.drawImage(enemyShots, shipsArr1[randomShot], shipsArr1[randomShot], 10, 10);
-		// doesnt even console log
-		console.log("draw already");
+
+	// Draw enemy fire
+	function pushEnemyFire() {
+		if (frameIntveral(1000)) {
+			enemyFiredArr.push(new EnemyShoot());
+		}
+	}
+
+	function updateEnemyFire() {
+		enemyFiredArr.forEach(function(elm) {
+			elm.randomShip()
+			elm.update();
+			elm.draw();
+		});
 	}
 
 	// Draw and push Lasers
@@ -213,6 +235,8 @@ window.onload = function() {
 		shipsUpdate();
 		laserUpdate();
 		drawAlien();
+		updateEnemyFire();
+		pushEnemyFire();
 		frameNum += 20;
 	}
 

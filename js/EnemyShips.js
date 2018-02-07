@@ -1,7 +1,7 @@
 var shipImg = new Image();
-shipImg.src = "images/badredship.png";
+shipImg.src = "images/playerShip1_green.png";
 var enemyShots = new Image();
-enemyShots.src = "images/EnemyShots.png";
+enemyShots.src = "images/laserGreen05.png";
 var enemyFiredArr = [];
 
 function ShipRow1() {
@@ -29,28 +29,54 @@ function ShipRow1() {
 
 
 function EnemyShoot() {	
+	
+	var that = this;
+	
 	this.randomShip = function() {
 		var randomShot =	Math.floor(Math.random() * shipsArr1.length);
-		return randomShot;
 		//loop where randomShot is the shipsArray1[randomShot]
+		for (var i = 1; i < shipsArr1.length; i++) {
+			that.shipX = shipsArr1[randomShot].x;
+			that.shipY = shipsArr1[randomShot].y;
+		}
 	}
 	this.random = this.randomShip();
-	this.x = ShipRow1[this.random].x;
-	this.y = ShipRow1[this.random].y;
+	this.x = this.shipX;
+	this.y = this.shipY;
 	// 
 	this.sprite = enemyShots;
-	this.width = 5;
+	this.width = 10;
 	this.height = 20;
+	this.living = true;
+	this.live = true;
 	this.update = function() {
-		this.y += 20;
+		this.y += 2;
 	}
 	this.draw = function() {
 		ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height)
 	}
-}
-
-function updateCanvas() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	laserUpdate();
-	frameNum += 20;
+	this.didHit = (otherobj) => {
+		var myleft = this.x;
+		var myright = this.x + (this.width);
+		var mytop = this.y
+		var mybottom = this.y + (this.height);
+		var otherleft = otherobj.x;
+		var otherright = otherobj.x + (otherobj.width);
+		var otherbottom = otherobj.y + (otherobj.height);
+		var othertop = otherobj.y;
+		var hit = true;
+		if (
+			(mybottom < othertop) ||
+			(mytop > otherbottom) ||
+			(myright < otherleft) ||
+			(myleft > otherright)
+		) {
+			hit = false;
+			console.log("no hit");
+		} else {
+			otherobj.living = false;
+			this.live = false;
+			console.log("so hit")
+		}
+	}
 }
