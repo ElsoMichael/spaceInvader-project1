@@ -1,14 +1,20 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+// Player Laser
 var playerLaser = new Image ();
 playerLaser.src = "images/Blue01png.png";
+// Background
 var background = new Image ();
 background.src = "images/Backgrounds/purple.png";
+// Score
+var score = 0;
+// Arrays
 var shipsArr1 = [];
 var firedArr = [];
 var enemyFiredArr = [];
+// Frames
 var frameNum = 0;
-
+// Updates
 var intervalId = setInterval(updateCanvas, 20);
 
 var alien = {
@@ -74,6 +80,7 @@ function AlienShoot() {
 		} else {
 			otherobj.living = false;
 			this.live = false;
+			score += 10
 		}
 	}
 }
@@ -93,6 +100,9 @@ window.onload = function() {
 		// Movement Path
 		ctx.fillStyle = "pink"
 		ctx.fillRect(0, 450, 600, 150)
+		// Score area
+		ctx.fillStyle = "black";
+		ctx.fillRect(0, 600, 600, 50)
 		// End of place holders
 	};
 
@@ -104,6 +114,13 @@ window.onload = function() {
 		}
 		img.src = 'images/alien.png';
 	}
+	
+	// Draw Score
+	function drawScore() {
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Score: "+score, 10, 635);
+}
 	
 	//Movement of Player
 	document.onkeydown = function(e) {
@@ -167,7 +184,6 @@ window.onload = function() {
 			// console.log("me no shoot");
 			break;
 		}
-    updateCanvas();
   }
 
 
@@ -237,6 +253,7 @@ window.onload = function() {
 		drawAlien();
 		updateEnemyFire();
 		pushEnemyFire();
+		drawScore();
 		frameNum += 20;
 	}
 

@@ -2,7 +2,6 @@ var shipImg = new Image();
 shipImg.src = "images/playerShip1_green.png";
 var enemyShots = new Image();
 enemyShots.src = "images/laserGreen05.png";
-var enemyFiredArr = [];
 
 function ShipRow1() {
 	this.x = 630;
@@ -28,8 +27,7 @@ function ShipRow1() {
 }
 
 
-function EnemyShoot() {	
-	
+function EnemyShoot() {
 	var that = this;
 	
 	this.randomShip = function() {
@@ -43,40 +41,18 @@ function EnemyShoot() {
 	this.random = this.randomShip();
 	this.x = this.shipX;
 	this.y = this.shipY;
-	// 
 	this.sprite = enemyShots;
 	this.width = 10;
 	this.height = 20;
+	this.left   = function() { return this.x                 };
+  this.right  = function() { return (this.x + this.width)  };
+  this.top    = function() { return this.y                 };
+  this.bottom = function() { return (this.y + this.height) };
 	this.living = true;
-	this.live = true;
 	this.update = function() {
 		this.y += 2;
 	}
 	this.draw = function() {
 		ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height)
-	}
-	this.didHit = (otherobj) => {
-		var myleft = this.x;
-		var myright = this.x + (this.width);
-		var mytop = this.y
-		var mybottom = this.y + (this.height);
-		var otherleft = otherobj.x;
-		var otherright = otherobj.x + (otherobj.width);
-		var otherbottom = otherobj.y + (otherobj.height);
-		var othertop = otherobj.y;
-		var hit = true;
-		if (
-			(mybottom < othertop) ||
-			(mytop > otherbottom) ||
-			(myright < otherleft) ||
-			(myleft > otherright)
-		) {
-			hit = false;
-			console.log("no hit");
-		} else {
-			otherobj.living = false;
-			this.live = false;
-			console.log("so hit")
-		}
 	}
 }
