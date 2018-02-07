@@ -73,11 +73,9 @@ function EnemyShoot() {
 			(myleft > otherright)
 		) {
 			hit = false;
-			console.log("no hit");
 		} else {
 			// otherobj.life = false;
 			this.alive = false;
-			console.log("so hit")
 		}
 		return hit;
 	}
