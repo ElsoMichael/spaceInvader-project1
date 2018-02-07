@@ -20,29 +20,21 @@ var intervalId = setInterval(updateCanvas, 20);
 var alien = {
 	x: 270,
 	y: 530,
+	speedX: 0,
+	speedY: 0,
 	width: 60,
 	height: 70,
-	moveLeft:  function() { this.x -= 10 },
-	moveRight: function() { this.x += 10 },
-	moveUp: function() {this.y -= 10},
-	moveDown: function() {this.y += 10},
+	lifes: 3,
+	life: true,
+	moveLeft:  function() { this.x -= this.speedX },
+	moveRight: function() { this.x += this.speedX },
+	moveUp: function() {this.y -= this.speedY },
+	moveDown: function() {this.y += this.speedY },
 	left: function() { return this.x },
   right: function() { return (this.x + this.width) },
   top: function() { return this.y },
   bottom: function() { return (this.y + this.height) },
-	living: true,
 }
-
-// function alien() {
-// 	this.x = 270;
-// 	this.y = 530;
-// 	this.width = 60;
-// 	this.height = 70;
-// 	this.moveLeft = function() { this.x -= 10 };
-// 	this.moveRight = function() { this.x += 10 };
-// 	this.moveUp = function() {this.y -= 10};
-// 	this.moveDown = function() {this.y += 10};
-// }
 
 function AlienShoot() {
 	this.x = alien.x;
@@ -127,25 +119,33 @@ window.onload = function() {
     switch (e.keyCode) {
 			// ASDW Movement
 			// A
-			case 65: alien.moveLeft();
+			case 65: 
+			alien.speedX = 10;
+			alien.moveLeft();
 			if (alien.x < -60) {
 				alien.x = 600;
 			}
 			break;
 			// D
-			case 68: alien.moveRight();
+			case 68:
+			alien.speedX = 10;
+			alien.moveRight();
 			if (alien.x > 600) {
 				alien.x = -60;
 			}
 			break;
 			// W
-			case 87: alien.moveUp();
+			case 87:
+			alien.speedY = 10;
+			alien.moveUp();
 			if (alien.y < 450) {
 				alien.y = 450;
 			}
 			break;
 			// S
-			case 83: alien.moveDown();
+			case 83:
+			alien.speedY = 10;
+			alien.moveDown();
 			if (alien.y > 530) {
 				alien.y = 530;
 			}
@@ -153,25 +153,33 @@ window.onload = function() {
 
 			// Arrow Keymovement
 			// Arrow Left
-			case 37: alien.moveLeft();
+			case 37:
+			alien.speedX = 10;
+			alien.moveLeft();
 			if (alien.x < -60) {
 				alien.x = 600;
 			}
 			break;
 			// Arrow Right
-			case 39: alien.moveRight();
+			case 39: 
+			alien.speedX = 10;
+			alien.moveRight();
 			if (alien.x > 600) {
 				alien.x = -60;
 			}
 			break;
 			// Arrow Up
-			case 38: alien.moveUp();
+			case 38:
+			alien.speedY = 10;
+			alien.moveUp();
 			if (alien.y < 450) {
 				alien.y = 450;
 			}
 			break;
 			// Arrow Down
-			case 40: alien.moveDown();
+			case 40:
+			alien.speedY = 10;
+			alien.moveDown();
 			if (alien.y > 530) {
 				alien.y = 530;
 			}
@@ -212,11 +220,22 @@ window.onload = function() {
 	}
 
 	function updateEnemyFire() {
+		if (frameNum <= 500) {
+			enemyFiredArr = [];
+		}
 		enemyFiredArr.forEach(function(elm) {
 			elm.randomShip()
 			elm.update();
 			elm.draw();
+			if(elm.didHit(alien)){
+				console.log(enemyFiredArr.length)
+				alien.lifes -= 1;
+			}
 		});
+		var result = enemyFiredArr.filter((elem) => {
+			return elem.alive === true
+		})
+		enemyFiredArr = result;
 	}
 
 	// Draw and push Lasers
