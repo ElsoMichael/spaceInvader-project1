@@ -36,7 +36,7 @@ var alien = {
 	speedY: 0,
 	width: 60,
 	height: 70,
-	lifes: 3,
+	lifes: 4,
 	life: true,
 	moveLeft:  function() { this.x -= this.speedX },
 	moveRight: function() { this.x += this.speedX },
@@ -159,7 +159,7 @@ function startGame() {
 	function drawLife() {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-		ctx.fillText("Lives: "+ alien.lifes, 500, 635);
+		ctx.fillText("Lives: ", 500, 635);
 		if (alien.lifes === 3) {
 			ctx.drawImage(img, 450, 610, 30, 30);
 			ctx.drawImage(img, 415, 610, 30, 30);
@@ -227,16 +227,16 @@ window.addEventListener('click', (e) =>{
 			case 65: 
 			alien.speedX = 10;
 			alien.moveLeft();
-			if (alien.x < -60) {
-				alien.x = 600;
+			if (alien.x < 0) {
+				alien.x = 0;
 			}
 			break;
 			// D
 			case 68:
 			alien.speedX = 10;
 			alien.moveRight();
-			if (alien.x > 600) {
-				alien.x = -60;
+			if (alien.x > 540) {
+				alien.x = 540;
 			}
 			break;
 			// W
@@ -261,16 +261,16 @@ window.addEventListener('click', (e) =>{
 			case 37:
 			alien.speedX = 10;
 			alien.moveLeft();
-			if (alien.x < -60) {
-				alien.x = 600;
+			if (alien.x < 0) {
+				alien.x = 0;
 			}
 			break;
 			// Arrow Right
 			case 39: 
 			alien.speedX = 10;
 			alien.moveRight();
-			if (alien.x > 600) {
-				alien.x = -60;
+			if (alien.x > 540) {
+				alien.x = 540;
 			}
 			break;
 			// Arrow Up
@@ -318,7 +318,7 @@ window.addEventListener('click', (e) =>{
 
 	// Draw enemy fire
 	function pushEnemyFire() {
-		if (frameIntveral(1000)) {
+		if (frameIntveral(500)) {
 			enemyFiredArr.push(new EnemyShoot());
 		}
 	}
