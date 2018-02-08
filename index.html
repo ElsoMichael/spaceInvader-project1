@@ -5,29 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/Arcade.css">
+	<link rel="stylesheet" href="css/Arcade.css">
+	<link rel="stylesheet" href="css/modal.css">
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <title>Document</title>
 </head>
-	<body>
 
-    <div class="game">
-			<div>
-				<h1>Space Invader</h1>
+	<body>
+		<!-- Main Content -->
+		<div class="container">
+
+			<div class="row">
+
+				<!-- Button Area -->
+				<div class="col center-text">
+					<button id="button" class="btn btn-success start bottom">Start Game</button>
+					<h1>Space	<br> Invader</h1>
+					<button id="instructions" class="btn btn-success bottom">How to Play!</button>
+					<button id="aboutGame" class="btn btn-success bottom">About Game</button>
+				</div>
+				
+				<!-- Game Board -->
+				<div class="col">
+					<canvas id="canvas" width="600" height="650"></canvas>
+				</div>
 			</div>
-			<canvas id="canvas" width="600" height="650"></canvas>
-			<div>
-				<!-- <p>Attack/Movement</p> -->
-				<p class="attack">Space Bar to Attack</p>
-				<ul>
-					<li>A/Left Arrow</li>
-					<li>S/Down Arrow</li>
-					<li>D/Left Arrow</li>
-					<li>W/Up Arrow</li>
-				</ul>
-				<button id="button" class="btn btn-success start">Start Game</button>
+		</div>
+		<!-- End of Main Content -->
+
+		<!-- About Game -->
+		<div id="myModal" class="modal">
+
+		<!-- About Game Content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+
+			<!-- Title -->
+			<header>
+				<h1 class="needSpace">About my Game</h1>
+			</header>
+
+			<!-- Content -->
+			<body>
+				<p class="moreCenter">Space Invader! I know its not a very Original Name. But its my take on a simple version of Galaga. This is for my <bold>First Project for IronHack!<bold> I picked to base my game on the old Arcade Game after completely failing at the simple mechanic of my first game that was based on the Classic Arcade Game Joyful Road. Collision with Firing is the biggest issue i faced making this game! But at the end of the day i got it to all work and i hope you enjoy it!!!!</p>
+			</body>
+
+			<!-- Created by Me -->
+			<footer>
+				<i>Created by Michael Elso</i>
+			</footer>
+		</div>
+		</div>
+		<!-- End of About Game -->
+
+		<!-- How to Play -->
+		<div id="myInstructions" class="modal">
+
+			<!-- How to Play Content -->
+			<div class="modal-content">
+				<span class="close1">&times;</span>
+
+				<!-- Title -->
+				<header>
+					<h1>How To Play!</h1>
+				</header>
+
+				<!-- Content -->
+				<body>
+					<h3>Movement</h3>
+					<p>Arrow Keys</p>
+					<p><img class="keys" src="images/Keyboard Keys/arrowkeys.png" alt="arrowkeys"></p>
+					<p>W/A/S/D Keys</p>
+					<p><img class="keys" src="images/Keyboard Keys/wasd.png" alt="W A S D Keys"></p>
+					<h3>Firing</h3>
+					<p><img class="spaceBar" src="images/Keyboard Keys/space.png" alt="spaceBar"></p>
+					<h3>Objective</h3>
+					<p class="moreCenter">Your Job is to Destroy as many Ships as you can to gain the most points! But be careful they wont go easy they will fight till the end! So you better watch your shots you dont want to be empty in a time of need!</p>
+				</body>
+
+				<!-- Created by Me -->
+				<footer>
+					<i>Created by Michael Elso</i>
+				</footer>
 			</div>
-    </div>
+			</div>
+			<!-- End of How to Play -->
+
+		<!-- Scripts -->
+		<script src="js/modal.js"></script>
     <script src="js/EnemyShips.js"></script>
 		<script src="js/MyGame.js"></script>
+		<!-- End of Scripts -->
 	</body>
 </html>

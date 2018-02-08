@@ -2,8 +2,6 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-
-
 // Player 
 var img = new Image();
 img.src = 'images/alien.png';
@@ -28,7 +26,6 @@ var enemyFiredArr = [];
 var frameNum = 0;
 
 // Updates
-// var intervalId = setInterval(updateCanvas, 20);
 var gameOver = false;
 
 // Alien Object
@@ -56,7 +53,7 @@ function AlienShoot() {
 	this.x = alien.x;
 	this.y = alien.y;
 	this.width = 9;
-	this.height = 54;
+	this.height = 25;
 	this.sprite = playerLaser;
 	this.live = true;
 
@@ -92,16 +89,29 @@ function AlienShoot() {
 	}
 }
 
+function onloadPlaceholder() {
+	ctx.drawImage(background, 0, 0, 600, 650);
+	ctx.drawImage(img, 240, 525, 100, 110);
+	ctx.drawImage(playerLaser, 280, 450, 20, 70);
+	ctx.drawImage(shipImg, 300, 10, 80, 90);
+	ctx.drawImage(shipImg, 100, 220, 80, 90);
+	ctx.drawImage(enemyShots, 340, 150, 15, 50);
+	ctx.drawImage(enemyShots, 150, 370, 15, 50);
+}
+
 // Restart
 function restart() {
 	console.log('restart');
 	window.location.reload();
 	document.getElementById("button").disabled = false;
+	document.getElementById("instructions").disabled = false;
+	document.getElementById("aboutGame").disabled = false;
 	gameOver = false;
 }
 
 // OnLoad
 window.onload = function() {
+	onloadPlaceholder();
 	document.getElementById("button").onclick = function() {
 		startGame();
 	}
@@ -111,6 +121,8 @@ window.onload = function() {
 function startGame() {
 	this.intervalId = setInterval(updateCanvas, 20);
 	document.getElementById("button").disabled = true;
+	document.getElementById("instructions").disabled = true;
+	document.getElementById("aboutGame").disabled = true;
 	console.log("start")
 }
 

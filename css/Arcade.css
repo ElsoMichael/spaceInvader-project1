@@ -1,6 +1,7 @@
 body {
 	color: greenyellow;
-	background-image: url("../images/Backgrounds/space-1.jpg")
+	background-image: url("../images/Backgrounds/space-1.jpg");
+	font-family: 'Press Start 2P', cursive;
 }
 
 .game {
@@ -8,23 +9,31 @@ body {
 	text-align: center;
 }
 
+.center-text {
+	text-align-last: center;
+	padding: 1px 0;
+	margin: auto 0;
+	background-color: rgba(0, 0, 0, .7);
+	border-radius: 25px;
+}
+
+.attack {
+	margin: 0;
+}
+
+.bottom {
+	margin-top: 25px;
+	margin-bottom: 15px;
+}
+
+.movement {
+	margin: 0;
+}
+
+.more-space {
+	margin-bottom: 25px;
+}
+
 #canvas {
-	display: inline;
-}
-
-h1 {
-	padding: 10px 0;
-}
-
-ul {
-	list-style-type: none;
-}
-
-ul li {
-	display: inline;
-	padding: 0 20px;
-}
-
-button {
-	display: block;
+	margin-top: 30px;
 }
