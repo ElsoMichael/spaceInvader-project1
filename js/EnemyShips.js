@@ -2,6 +2,8 @@ var shipImg = new Image();
 shipImg.src = "images/playerShip1_green.png";
 var enemyShots = new Image();
 enemyShots.src = "images/laserGreen05.png";
+var destroyed = new Image();
+destroyed.src = "images/laserGreen16.png";
 var enemyFiredArr = [];
 
 function ShipRow1() {
@@ -20,15 +22,16 @@ function ShipRow1() {
 		if (this.x < -10) {
 			this.y += 60;
 			this.x = 630;
-		}	
+		}
 	}
 	this.draw=function(){
-		ctx.drawImage(this.sprite, this.x ,this.y , this.width, this.height);
+		ctx.drawImage(shipImg, this.x ,this.y , this.width, this.height);
 	}
 }
 
-
-
+function poof(x, y) {
+	ctx.drawImage(destroyed, x, y, 50, 50);
+}
 
 function EnemyShoot() {	
 	

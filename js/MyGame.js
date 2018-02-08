@@ -2,6 +2,11 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+// Sounds
+var backgroundSound = new Audio("Sound/8-Bit_Retro_Video_Game_Sound_Effects_1[Mp3Converter.net] (2)-[AudioTrimmer.com].mp3");
+// var alienBlaster = new Audio("Sound/8bit_Gun_Shots_Sound_Effect_Retro_Games_Soundholder[Mp3Converter.net]-[AudioTrimmer.com].mp3");
+var alienDestroyer = new Audio("Sound/Ultimate_Retro_Sound_Effect[Mp3Converter.net]-[AudioTrimmer.com].mp3");
+
 // Player 
 var img = new Image();
 img.src = 'images/alien.png';
@@ -86,6 +91,7 @@ function AlienShoot() {
 			this.live = false;
 			score += 10
 		}
+		return hit;
 	}
 }
 
@@ -123,6 +129,7 @@ function startGame() {
 	document.getElementById("button").disabled = true;
 	document.getElementById("instructions").disabled = true;
 	document.getElementById("aboutGame").disabled = true;
+	backgroundSound.play();
 	console.log("start")
 }
 
@@ -159,16 +166,16 @@ function startGame() {
 	function drawLife() {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-		ctx.fillText("Lives: ", 500, 635);
+		ctx.fillText("Lives: ", 380, 635);
 		if (alien.lifes === 3) {
+			ctx.drawImage(img, 520, 610, 30, 30);
+			ctx.drawImage(img, 485, 610, 30, 30);
 			ctx.drawImage(img, 450, 610, 30, 30);
-			ctx.drawImage(img, 415, 610, 30, 30);
-			ctx.drawImage(img, 380, 610, 30, 30);
 		} else if (alien.lifes === 2) {
-				ctx.drawImage(img, 415, 610, 30, 30);
-				ctx.drawImage(img, 380, 610, 30, 30);
+				ctx.drawImage(img, 485, 610, 30, 30);
+				ctx.drawImage(img, 450, 610, 30, 30);
 		} else if (alien.lifes === 1) {
-				ctx.drawImage(img, 380, 610, 30, 30);
+				ctx.drawImage(img, 450, 610, 30, 30);
 		} else if (alien.lifes === -1) {
 				clearInterval(intervalId);
 				ctx.fillStyle = "rgba(0, 0, 0, 0.5)"
@@ -294,6 +301,7 @@ window.addEventListener('click', (e) =>{
 			// Player Attack
 			case 32:
 			pushLaser();
+			// alienBlaster.play();
 			break;
 		}
   }
@@ -359,6 +367,10 @@ window.addEventListener('click', (e) =>{
 			elm.draw();
 			shipsArr1.forEach((elem) => {
 				elm.didHit(elem);
+				if (elm.didHit(elem)) {
+					poof(elem.x, elem.y)
+					alienDestroyer.play();
+				}
 			})
 		})
 		var result1 = shipsArr1.filter((elem) => {
