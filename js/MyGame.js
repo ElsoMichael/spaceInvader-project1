@@ -1,25 +1,37 @@
+// Canvas
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+
+
+
 // Player 
 var img = new Image();
 img.src = 'images/alien.png';
+
 // Player Laser
 var playerLaser = new Image ();
 playerLaser.src = "images/Blue01png.png";
+
 // Background
 var background = new Image ();
 background.src = "images/Backgrounds/purple.png";
+
 // Score
 var score = 0;
+
 // Arrays
 var shipsArr1 = [];
 var firedArr = [];
 var enemyFiredArr = [];
+
 // Frames
 var frameNum = 0;
+
 // Updates
-var intervalId = setInterval(updateCanvas, 20);
+// var intervalId = setInterval(updateCanvas, 20);
 var gameOver = false;
+
+// Alien Object
 var alien = {
 	x: 270,
 	y: 530,
@@ -39,6 +51,7 @@ var alien = {
   bottom: function() { return (this.y + this.height) },
 }
 
+// Alien Shoot
 function AlienShoot() {
 	this.x = alien.x;
 	this.y = alien.y;
@@ -51,7 +64,7 @@ function AlienShoot() {
 		ctx.drawImage(this.sprite, this.x + (alien.width/2 - this.width/2), this.y, this. width, this.height)
 	}
 	this.update = function() {
-		this.y -= 2; 
+		this.y -= 4; 
 	}
 	// Code to handle collision
 	this.didHit = (otherobj) => {
@@ -79,15 +92,28 @@ function AlienShoot() {
 	}
 }
 
+// Restart
 function restart() {
 	console.log('restart');
 	window.location.reload();
+	document.getElementById("button").disabled = false;
 	gameOver = false;
 }
 
+// OnLoad
 window.onload = function() {
-	drawBoard();
+	document.getElementById("button").onclick = function() {
+		startGame();
+	}
 };
+
+// Start of Game
+function startGame() {
+	this.intervalId = setInterval(updateCanvas, 20);
+	document.getElementById("button").disabled = true;
+	console.log("start")
+}
+
 
 	//Board
 	function drawBoard() {
@@ -146,6 +172,35 @@ window.onload = function() {
 		}
 }
 
+// Draw Laser Counter
+function drawLaserCounter() {
+	ctx.font = "20px Arial";
+	ctx.fillStyle = "white";
+	ctx.fillText("Shots Left:", 140, 635);
+	if (firedArr.length === 0) {
+		ctx.drawImage(playerLaser, 250, 610, 9, 30);
+		ctx.drawImage(playerLaser, 270, 610, 9, 30);
+		ctx.drawImage(playerLaser, 290, 610, 9, 30);
+		ctx.drawImage(playerLaser, 310, 610, 9, 30);
+		ctx.drawImage(playerLaser, 330, 610, 9, 30);
+	} else if (firedArr.length === 1) {
+			ctx.drawImage(playerLaser, 250, 610, 9, 30);
+			ctx.drawImage(playerLaser, 270, 610, 9, 30);
+			ctx.drawImage(playerLaser, 290, 610, 9, 30);
+			ctx.drawImage(playerLaser, 310, 610, 9, 30);
+	} else if (firedArr.length === 2) {
+			ctx.drawImage(playerLaser, 250, 610, 9, 30);
+			ctx.drawImage(playerLaser, 270, 610, 9, 30);
+			ctx.drawImage(playerLaser, 290, 610, 9, 30);
+	} else if (firedArr.length === 3) {
+			ctx.drawImage(playerLaser, 250, 610, 9, 30);
+			ctx.drawImage(playerLaser, 270, 610, 9, 30);
+	} else if (firedArr.length === 4) {
+			ctx.drawImage(playerLaser, 250, 610, 9, 30);
+	}
+}
+
+// Click Event to Restart
 window.addEventListener('click', (e) =>{
 	if (gameOver === true) {
 		restart();
@@ -277,12 +332,17 @@ window.addEventListener('click', (e) =>{
 
 	// Draw and push Lasers
 	function pushLaser() {
+		if (firedArr.length < 5) {
 		firedArr.push(new AlienShoot());
+		}
 	}
 
 	function laserUpdate() {
 		// console.log("Shots Fired")
 		firedArr.forEach(function(elm) {
+			if (elm.y < 0) {
+				elm.live = false;
+			}
 			elm.update();
 			elm.draw();
 			shipsArr1.forEach((elem) => {
@@ -311,6 +371,7 @@ window.addEventListener('click', (e) =>{
 		pushEnemyFire();
 		drawScore();
 		drawLife();
+		drawLaserCounter();
 		frameNum += 20;
 	}
 

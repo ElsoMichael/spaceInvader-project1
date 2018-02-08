@@ -1,0 +1,30 @@
+body {
+	color: greenyellow;
+	background-image: url("../images/Backgrounds/space-1.jpg")
+}
+
+.game {
+	width: 100%;
+	text-align: center;
+}
+
+#canvas {
+	display: inline;
+}
+
+h1 {
+	padding: 10px 0;
+}
+
+ul {
+	list-style-type: none;
+}
+
+ul li {
+	display: inline;
+	padding: 0 20px;
+}
+
+button {
+	display: block;
+}
