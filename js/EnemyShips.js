@@ -20,10 +20,7 @@ function ShipRow1() {
 		if (this.x < -10) {
 			this.y += 60;
 			this.x = 630;
-		}
-		if (this.living = false) {
-			
-		}
+		}	
 	}
 	this.draw=function(){
 		ctx.drawImage(this.sprite, this.x ,this.y , this.width, this.height);
