@@ -89,7 +89,7 @@ function AlienShoot() {
 		} else {
 			otherobj.living = false;
 			this.live = false;
-			score += 10
+			score += 5;
 		}
 		return hit;
 	}
